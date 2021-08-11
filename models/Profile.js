@@ -45,7 +45,6 @@ const ProfileSchema = new mongoose.Schema({
       },
       to: {
         type: Date,
-        required: true,
       },
       current: {
         type: Boolean,
@@ -66,7 +65,7 @@ const ProfileSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
-      filed_of_study: {
+      field_of_study: {
         type: String,
         required: true,
       },
