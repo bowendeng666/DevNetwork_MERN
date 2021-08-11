@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb+srv://bowendeng:19970310@devnetwork.cczas.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  "jwtSecret": "superlongsecret"
+  "jwtSecret": "superlongsecret",
+  "github_clientID": "db87bc83767b90824d2d",
+  "github_secret": "267023851805da1c616ac6c8b3c7b99467bdf1ad"
 }
