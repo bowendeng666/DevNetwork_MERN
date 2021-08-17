@@ -1,12 +1,10 @@
-import React, { Fragment, useState } from 'react';
-import { Link, withRouter} from 'react-router-dom';
-
+import React, { Fragment, useState, useEffect } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createProfile } from '../../actions/profile';
+import { createProfile, getCurrentProfile } from '../../actions/profile';
 
-
-const CreateProfile = (props) => {
+const EditProfile = (props) => {
   const [formData, setFormData] = useState({
     company: '',
     website: '',
@@ -24,13 +22,64 @@ const CreateProfile = (props) => {
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
+  useEffect(() => {
+    props.getCurrentProfile();
+    //filling the form if there is existing profile
+    setFormData({
+      company:
+        props.profile.loading || !props.profile.profile.company
+          ? ''
+          : props.profile.profile.company,
+      website:
+        props.profile.loading || !props.profile.profile.website
+          ? ''
+          : props.profile.profile.website,
+      location:
+        props.profile.loading || !props.profile.profile.location
+          ? ''
+          : props.profile.profile.location,
+      status:
+        props.profile.loading || !props.profile.profile.status
+          ? ''
+          : props.profile.profile.status,
+      skills:
+        props.profile.loading || !props.profile.profile.skills
+          ? ''
+          : props.profile.profile.skills.join(','),
+      github_username:
+        props.profile.loading || !props.profile.profile.github_username
+          ? ''
+          : props.profile.github_username,
+      bio:
+        props.profile.loading || !props.profile.profile.bio
+          ? ''
+          : props.profile.profile.bio,
+      twitter:
+        props.profile.loading || !props.profile.profile.social
+          ? ''
+          : props.profile.profile.social.twitter,
+      facebook:
+        props.profile.loading || !props.profile.profile.social
+          ? ''
+          : props.profile.profile.social.facebook,
+      linkedin:
+        props.profile.loading || !props.profile.profile.social
+          ? ''
+          : props.profile.profile.social.linkedin,
+      youtube:
+        props.profile.loading || !props.profile.profile.social
+          ? ''
+          : props.profile.profile.social.linkedin,
+    });
+  }, [props.profile.loading]);
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData)
-    props.createProfile(formData, props.history);
+    console.log(formData);
+    props.createProfile(formData, props.history, true);
   };
 
   return (
@@ -212,8 +261,16 @@ const CreateProfile = (props) => {
   );
 };
 
-CreateProfile.propTypes = {
-  createProfile: PropTypes.func.isRequired
+EditProfile.propTypes = {
+  createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
-export default connect(null, { createProfile })(withRouter(CreateProfile));
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+});
+
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  withRouter(EditProfile)
+);
