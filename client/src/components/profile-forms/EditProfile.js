@@ -71,7 +71,7 @@ const EditProfile = (props) => {
           ? ''
           : props.profile.profile.social.linkedin,
     });
-  }, [props.profile.loading]);
+  }, [props.profile.loading, props.getCurrentProfile]);
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
