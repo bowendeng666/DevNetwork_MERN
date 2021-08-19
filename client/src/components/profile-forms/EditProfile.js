@@ -49,7 +49,7 @@ const EditProfile = (props) => {
       github_username:
         props.profile.loading || !props.profile.profile.github_username
           ? ''
-          : props.profile.github_username,
+          : props.profile.profile.github_username,
       bio:
         props.profile.loading || !props.profile.profile.bio
           ? ''
@@ -163,7 +163,7 @@ const EditProfile = (props) => {
           <input
             type='text'
             placeholder='Github Username'
-            name='githubusername'
+            name='github_username'
             value={formData.github_username}
             onChange={(e) => onChange(e)}
           />

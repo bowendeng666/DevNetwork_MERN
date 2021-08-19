@@ -7,7 +7,7 @@ import {
   UPDATE_PROFILE,
   ACCOUNT_DELETED,
   CLEAR_PROFILE,
-  GET_REPOS
+  GET_REPOS,
 } from './types';
 
 // Get current uesrs profile
@@ -19,6 +19,11 @@ export const getCurrentProfile = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
+    //for security concern, clear profile state
+    dispatch({
+      type: CLEAR_PROFILE,
+    });
+
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
@@ -74,7 +79,6 @@ export const getGithubRepos = (username) => async (dispatch) => {
     });
   }
 };
-
 
 //Create or update ptofile
 export const createProfile =

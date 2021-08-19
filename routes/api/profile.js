@@ -295,6 +295,7 @@ router.put('/education/:edu_id', auth, async (req, res) => {
 // access: Public
 router.get('/github/:username', (req, res) => {
   try {
+    console.log(req.params.username);
     const options = {
       uri: `https://api.github.com/users/${
         req.params.username
